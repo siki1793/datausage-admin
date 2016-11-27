@@ -17,7 +17,7 @@
   "author": "Saikrishna Mundrathi",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "~3.0.0"
   },
   "bugs": {
     "url": "https://github.com/siki1793/datausage-test/issues"
