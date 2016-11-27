@@ -1,14 +1,25 @@
 {
   "name": "datausageapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "datausage admin app hosting on heroku",
+  "engines": {
+    "node": "4.4.5"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siki1793/datausage-admin.git"
   },
   "author": "Saikrishna Mundrathi",
   "license": "ISC",
   "devDependencies": {
     "express": "~3.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/siki1793/datausage-test/issues"
   }
 }

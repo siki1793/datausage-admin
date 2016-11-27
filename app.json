@@ -1,0 +1,6 @@
+{
+  "name": "Data usage admin app",
+  "description": "data usage client",
+  "repository": "https://github.com/siki1793/datausage-admin",
+  "keywords": ["node", "express", "static"]
+}
