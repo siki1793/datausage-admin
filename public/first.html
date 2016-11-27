@@ -1,0 +1,70 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 style="color: white">Data Usage Analyser</h3>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid" style="margin-top: 100px">
+  <div class="row" style="margin-left: 50px">
+	<div class="col-md-1"></div>	
+	<div class="col-md-5">
+		Enter Start Date:  <input ng-model="strtDate" datetime-picker date-format="yyyy-MM-dd" date-only /> 
+	</div>
+	<div class="col-md-5"></div>	
+	<div class="col-md-5">
+		Enter End Date:  <input ng-model="endDate" datetime-picker date-format="yyyy-MM-dd" date-only /> 
+
+	</div>
+<br>
+	
+
+
+<br> <br>Select: 
+<select ng-options="t as t.number for t in t1" ng-selected="Select" ng-model="selectedNumber"></select>
+ 
+
+  </div>
+  <div class="row">
+	<div class="col-md-11"></div>
+	<div class="col-md-1">
+	<button class="btn btn-primary btn-lg pull-right" ng-click="getData()">Submit</button>
+	</div>	
+  </div>
+</div>
+<br> <br>
+<!-- Running D3-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 style="color: white">Data Individual Visualization</h3>
+    </div>
+  </div>
+</nav>
+<div class="row">
+	<div class="col-md-2">	
+		Start Date: {{strtDate}}
+	</div>	
+	<div class="col-md-2">	
+		End Date: {{endDate}}
+	</div>	
+</div>
+You Are Looking at the data visualization of <b> {{selectedNumber.number}} </b>
+<br><br>
+<div class="row content">
+
+        <!-- Google Map -->
+        <div class="col-md-7">
+            <div id="dvMap" style="width: 921px; height: 329px;"></div>
+        </div>
+
+        <!-- Side Panel (Controlled by ng-view) -->
+
+    </div>
+
+<div class="demo" id="demoID">
+
+</div>
+

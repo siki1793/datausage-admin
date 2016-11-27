@@ -1,0 +1,79 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 style="color: white">Data Usage Analyser</h3>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container-fluid" style="margin-top: 100px">
+  <div class="row" style="margin-left: 50px">
+	<div class="col-md-1"></div>	
+	<div class="col-md-5">
+		Enter Start Date:  <input ng-model="strtDate" datetime-picker date-format="yyyy-MM-dd" date-only /> 
+	</div>
+	<div class="col-md-5"></div>	
+	<div class="col-md-5">
+		Enter End Date:  <input ng-model="endDate" datetime-picker date-format="yyyy-MM-dd" date-only /> 
+
+	</div>
+<br>
+	
+
+
+<br> <br>
+
+  </div>
+  <div class="row">
+	<div class="col-md-11"></div>
+	<div class="col-md-1">
+	<button class="btn btn-primary btn-lg pull-right" ng-click="getData()">Submit</button>
+	</div>	
+  </div>
+</div>
+<br> <br>
+<!-- Running D3-->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <h3 style="color: white">Data Total Visualization</h3>
+    </div>
+  </div>
+</nav>
+<div class="row">
+	<div class="col-md-2">	
+		Start Date: {{strtDate}}
+	</div>	
+	<div class="col-md-2">	
+		End Date: {{endDate}}
+	</div>	
+</div>
+<br><br>
+<!-- <div class = "row">
+	<div class="col-md-2">
+		Morning: 6:00 AM-11:00 AM
+	</div>
+	<div class="col-md-2">
+		Afternoon: 11:00 AM-4:00 PM
+	</div>
+	<div class="col-md-2">
+		Evening: 4:00 PM-8:00 PM
+	</div>
+	<div class="col-md-2">
+		Night: 8:00 PM-1:00 AM
+	</div>
+	<div class="col-md-2">
+		Early Morning: 1:00 AM-6:00 AM
+	</div>
+</div>-->
+
+Total data is visualized as
+<div class="demo">
+
+</div>
+Applcation wise data is visualized as
+<div class="demo1">
+	
+</div>
+<!--<p>{{data}}</p>-->
