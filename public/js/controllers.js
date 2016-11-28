@@ -265,15 +265,12 @@ var map= function (received) {
 				"endDate":date2,
 				};
 	//var serializedData = $.param({name:Hello});
+console.log(dateToJson);
 
 	$http({
 	    method: 'POST',
 	    url: serverUrl+'/query',
-	    data: angular.toJson(dateToJson),
-	    headers: {
-	        'Content-Type': 'text/plain',
-		   'Accept':'text/plain'
-	    }}).then(function(response) {
+	    data: angular.toJson(dateToJson)}).then(function(response) {
 	           //console.log(result);
 			//$scope.data = response;			
 			var received = response.data;
@@ -303,11 +300,7 @@ var map= function (received) {
 	$http({
 	    method: 'POST',
 	    url: serverUrl+'/appwise',
-	    data: angular.toJson(dateToJson),
-	    headers: {
-	        'Content-Type': 'text/plain',
-		   'Accept':'text/plain'
-	    }}).then(function(response) {
+	    data: angular.toJson(dateToJson)}).then(function(response) {
 	           //console.log(result);
 			//$scope.data = response;			
 			var received = response.data;
