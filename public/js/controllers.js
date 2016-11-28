@@ -280,8 +280,6 @@ var map= function (received) {
 			//received = JSON.parse(received);
 			$scope.data = received;		
 			runD3(received);  // for data from server
-			runD31();		// for static data
-
        });
 //for geting map data from node
 	$http({
@@ -302,7 +300,21 @@ var map= function (received) {
 
 
        });
-	
+	$http({
+	    method: 'POST',
+	    url: serverUrl+'/appwise',
+	    data: angular.toJson(dateToJson),
+	    headers: {
+	        'Content-Type': 'text/plain',
+		   'Accept':'text/plain'
+	    }}).then(function(response) {
+	           //console.log(result);
+			//$scope.data = response;			
+			var received = response.data;
+			//received = JSON.parse(received);
+			$scope.data = received;		
+			appwiseD3(received);		// for static data
+       });
 
 
 	function runD3(data){
@@ -318,16 +330,20 @@ var map= function (received) {
 
 	}
 // pie chart for app wise data visualization
-function runD31(){
+function appwiseD3(appData){
 console.log("hellooo in d31");
 var w = 400;
 var h = 400;
 var r = h/2;
 var color = ['green','red','blue']
 
-var data = [{"label":"WhatsApp", "value":20}, 
-		          {"label":"Youtube", "value":50}, 
-		          {"label":"Chrome", "value":30}];
+var data ;
+
+for(var i=0;i<appData.length;i++)
+{
+	data[i].lable=appData[i]._id;
+	data[i].value=appData[i].applicationTotal;
+}
 
 
 var vis = d3.select('div.demo').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
