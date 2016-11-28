@@ -292,7 +292,7 @@ var map= function (received) {
 			//received = JSON.parse(received);
 
 			$scope.data1 = received;
-			console.log(received);
+			
 			map(received)
 			//console.log($scope.data1);
 //			$window.data = received;		
@@ -315,6 +315,7 @@ var map= function (received) {
 			console.log(received);
 			$scope.data = received;		
 			appwiseD3(received);		// for static data
+			appwiseChartD3(received);
        });
 
 
@@ -330,23 +331,29 @@ var map= function (received) {
     chart.draw();
 
 	}
+
 // pie chart for app wise data visualization
 function appwiseD3(appData){
 console.log("hellooo in d31");
 var w = 400;
 var h = 400;
 var r = h/2;
-var color = ['green','red','blue']
+var color = ['green','red','blue','orange','pink'];
 
-var data ;
+var data=[] ;
 
 console.log(appData);
-for(var i=0;i<appData.length;i++)
+var totalSum=0
+for(var i=0;i<5;i++)
 {
-	data[i].lable=appData[i]._id;
-	data[i].value=appData[i].applicationTotal;
+	totalSum+=appData[i].applicationTotal;
+}
+for(var i=0;i<5;i++)
+{
+	data.push({label:appData[i]._id,value:(appData[i].applicationTotal/totalSum)*100});
 }
 
+console.log(data);
 
 var vis = d3.select('div.demo').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 var pie = d3.layout.pie().value(function(d){return d.value;});
@@ -380,3 +387,16 @@ arcs.append("svg:text").attr("transform", function(d){
 
 	
   }]);
+
+  	function appwiseChartD3(data){
+		var svg = dimple.newSvg("div.demo1", 1500, 600);
+
+	//console.log("hellooo");
+	var chart = new dimple.chart(svg,data);
+    chart.addCategoryAxis("x", "_id");
+    chart.addMeasureAxis("y", "applicationTotal");
+    chart.addSeries(null, dimple.plot.bar);
+    chart.addLegend(600, 10, 510, 20, "right");
+    chart.draw();
+
+	}
