@@ -312,6 +312,7 @@ var map= function (received) {
 			//$scope.data = response;			
 			var received = response.data;
 			//received = JSON.parse(received);
+			console.log(received);
 			$scope.data = received;		
 			appwiseD3(received);		// for static data
        });
@@ -339,6 +340,7 @@ var color = ['green','red','blue']
 
 var data ;
 
+console.log(appData);
 for(var i=0;i<appData.length;i++)
 {
 	data[i].lable=appData[i]._id;
