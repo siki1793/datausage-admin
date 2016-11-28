@@ -350,7 +350,7 @@ for(var i=0;i<5;i++)
 }
 for(var i=0;i<5;i++)
 {
-	data.push({label:appData[i]._id,value:(appData[i].applicationTotal/totalSum)*100});
+	data.push({label:appData[i]._id,value:((appData[i].applicationTotal/totalSum)*100).toFixed(2)});
 }
 
 console.log(data);
