@@ -6,7 +6,7 @@
     "Saikrishna Mundrathi"
   ],
   "license": "ISC",
-  "homepage": "https://usageanalytics.herokuapp.com",
+  "homepage": "https://usageanalysis.herokuapp.com",
   "moduleType": [
     "globals",
     "node"
