@@ -355,7 +355,7 @@ for(var i=0;i<5;i++)
 
 console.log(data);
 
-var vis = d3.select('div.demo').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis = d3.select('div.demo2').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 var pie = d3.layout.pie().value(function(d){return d.value;});
 
 // declare an arc generator function
