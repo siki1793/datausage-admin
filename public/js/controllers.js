@@ -1,7 +1,9 @@
 'use strict';
 
 /* Controllers */
-var serverUrl = "https://mobiledatausage.herokuapp.com";
+// var serverUrl = "https://mobiledatausage.herokuapp.com";
+ var serverUrl = "http://localhost:3000";
+
 
 myapp.controller('firstCtrl', ['$scope','$http', function($scope, $http){
 //js for showing map 
@@ -248,138 +250,145 @@ var map= function (received) {
 		console.log("in getData");
 		var cls = angular.element(document.querySelector('#demoID'));
 		cls.empty();
-	var date1=new Date($scope.strtDate);
-	var date2=new Date($scope.endDate);
+		var date1=new Date($scope.strtDate);
+		var date2=new Date($scope.endDate);
 		console.log(date1+".."+date2);
-	date1 = new Date(date1.getFullYear(),date1.getMonth(),date1.getDate());
-	date2 = new Date(date2.getFullYear(),date2.getMonth(),date2.getDate());
+		date1 = new Date(date1.getFullYear(),date1.getMonth(),date1.getDate());
+		date2 = new Date(date2.getFullYear(),date2.getMonth(),date2.getDate());
 
-	console.log("After date capture");
-	date1 = $scope.formatLocalDate(date1);
-	date2 = $scope.formatLocalDate(date2);
+		console.log("After date capture");
+		date1 = $scope.formatLocalDate(date1);
+		date2 = $scope.formatLocalDate(date2);
 	
-	//console.log("After fn call"+$scope.selectedNumber.number);
+		//console.log("After fn call"+$scope.selectedNumber.number);
 
-	var dateToJson = {
+		var dateToJson = {
 				"startDate":date1,
 				"endDate":date2,
 				};
-	//var serializedData = $.param({name:Hello});
-console.log(dateToJson);
+		//var serializedData = $.param({name:Hello});
 
-	$http({
-	    method: 'POST',
-	    url: serverUrl+'/query',
-	    data: angular.toJson(dateToJson)}).then(function(response) {
-	           //console.log(result);
-			//$scope.data = response;			
-			var received = response.data;
-			//received = JSON.parse(received);
-			$scope.data = received;		
-			runD3(received);  // for data from server
-       });
-//for geting map data from node
-	$http({
-	    method: 'GET',
-	    url: serverUrl+'/get_coor'
-	    }).then(function(response) {
-	           //console.log(result);
-			//$scope.data = response;			
-			var received = response.data;
-			//received = JSON.parse(received);
+		$http({
+	    	method: 'POST',
+	    	url: serverUrl+'/query',
+	    	data: angular.toJson(dateToJson),
+	    	headers: {
+		        'Content-Type': 'text/plain',
+				'Accept':'text/plain'
+		    }}).then(function(response) {
+		           //console.log(result);
+				//$scope.data = response;			
+				var received = response.data;
+				//received = JSON.parse(received);
+				$scope.data = received;		
+				runD3(received);  // for data from server
+       	});
+	//for geting map data from node
+		$http({
+		    method: 'GET',
+		    url: serverUrl+'/get_coor'
+		    }).then(function(response) {
+	    	       //console.log(result);
+				//$scope.data = response;			
+				var received = response.data;
+				//received = JSON.parse(received);
 
-			$scope.data1 = received;
-			
-			map(received)
-			//console.log($scope.data1);
-//			$window.data = received;		
-	//		runD3(received);
-
-
-       });
-	$http({
-	    method: 'POST',
-	    url: serverUrl+'/appwise',
-	    data: angular.toJson(dateToJson)}).then(function(response) {
-	           //console.log(result);
-			//$scope.data = response;			
-			var received = response.data;
-			//received = JSON.parse(received);
-			console.log(received);
-			$scope.data = received;		
-			appwiseD3(received);		// for static data
-			appwiseChartD3(received);
-       });
+				$scope.data1 = received;
+				
+				map(received)
+				//console.log($scope.data1);
+	//			$window.data = received;		
+		//		runD3(received);
 
 
-	function runD3(data){
-		var svg = dimple.newSvg("div.demo", 1500, 600);
+       	});
+		$http({
+		    method: 'POST',
+		    url: serverUrl+'/appwise',
+		    data: angular.toJson(dateToJson),
+		    headers: {
+		        'Content-Type': 'text/plain',
+			   'Accept':'text/plain'
+		    }}).then(function(response) {
+		           //console.log(result);
+				//$scope.data = response;			
+				var received = response.data;
+				//received = JSON.parse(received);
+				console.log(received);
+				$scope.data = received;		
+				appwiseD3(received);		// for static data
+				appwiseChartD3(received);
+	       });
 
-	//console.log("hellooo");
-	var chart = new dimple.chart(svg,data);
-    chart.addCategoryAxis("x", ["Session","type"]);
-    chart.addMeasureAxis("y", "data");
-    chart.addSeries("type", dimple.plot.bar);
-    chart.addLegend(600, 10, 510, 20, "right");
-    chart.draw();
 
-	}
+		function runD3(data){
+			var svg = dimple.newSvg("div.demo", 1500, 600);
 
-// pie chart for app wise data visualization
-function appwiseD3(appData){
-console.log("hellooo in d31");
-var w = 400;
-var h = 400;
-var r = h/2;
-var color = ['green','red','blue','orange','pink'];
+			//console.log("hellooo");
+			var chart = new dimple.chart(svg,data);
+    			chart.addCategoryAxis("x", ["Session","type"]);
+    			chart.addMeasureAxis("y", "data");
+    			chart.addSeries("type", dimple.plot.bar);
+    			chart.addLegend(600, 10, 510, 20, "right");
+			    chart.draw();
 
-var data=[] ;
+		}
 
-console.log(appData);
-var totalSum=0
-for(var i=0;i<5;i++)
-{
-	totalSum+=appData[i].applicationTotal;
-}
-for(var i=0;i<5;i++)
-{
-	data.push({label:appData[i]._id,value:((appData[i].applicationTotal/totalSum)*100).toFixed(2)});
-}
+		// pie chart for app wise data visualization
+		function appwiseD3(appData){
+				console.log("hellooo in d31");
+				var w = 400;
+				var h = 400;
+				var r = h/2;
+				var color = ['green','red','blue','orange','pink'];
 
-console.log(data);
+				var data=[] ;
 
-var vis = d3.select('div.demo2').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-var pie = d3.layout.pie().value(function(d){return d.value;});
+				console.log(appData);
+				var totalSum=0
+				for(var i=0;i<5;i++)
+				{
+					totalSum+=appData[i].applicationTotal;
+				}
+				for(var i=0;i<5;i++)
+				{
+					data.push({label:appData[i]._id,value:((appData[i].applicationTotal/totalSum)*100).toFixed(2)});
+				}
 
-// declare an arc generator function
-var arc = d3.svg.arc().outerRadius(r);
+				console.log(data);
 
-// select paths, use arc generator to draw
-var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-arcs.append("svg:path")
-    .attr("fill", function(d, i){
-        return color[i];
-    })
-    .attr("d", function (d) {
-        // log the result of the arc generator to show how cool it is :)
-        console.log(arc(d));
-        return arc(d);
-    });
+				var vis = d3.select('div.demo2').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+				var pie = d3.layout.pie().value(function(d){return d.value;});
 
-// add the text
-arcs.append("svg:text").attr("transform", function(d){
-			d.innerRadius = 0;
-			d.outerRadius = r;
-    return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").text( function(d, i) {
-    return data[i].label+" "+data[i].value+" %";}
-		);
+				// declare an arc generator function
+				var arc = d3.svg.arc().outerRadius(r);
 
-	}
+				// select paths, use arc generator to draw
+				var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+					arcs.append("svg:path")
+    					.attr("fill", function(d, i){
+        						return color[i];
+    					})
+    					.attr("d", function (d) {
+        						// log the result of the arc generator to show how cool it is :)
+        						console.log(arc(d));
+        						return arc(d);
+    					});
+
+						// add the text
+					arcs.append("svg:text").attr("transform", function(d){
+								d.innerRadius = 0;
+								d.outerRadius = r;
+    							return "translate(" + arc.centroid(d) + ")";}).attr("text-anchor", "middle").text( function(d, i) {
+    										return data[i].label+" "+data[i].value+" %";}
+							);
+
+				}
 	 
-	}
+			}
 
 	
-  }]);
+  		}]);
 
   	function appwiseChartD3(data){
 		var svg = dimple.newSvg("div.demo1", 1500, 600);
