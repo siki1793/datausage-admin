@@ -2,7 +2,7 @@
 
 /* Controllers */
 // var serverUrl = "https://mobiledatausage.herokuapp.com";
- var serverUrl = "http://localhost:3000";
+ var serverUrl = "http://localhost:5000";
 
 
 myapp.controller('firstCtrl', ['$scope','$http', function($scope, $http){
