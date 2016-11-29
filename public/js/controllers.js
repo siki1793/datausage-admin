@@ -1,8 +1,8 @@
 'use strict';
 
 /* Controllers */
-// var serverUrl = "https://mobiledatausage.herokuapp.com";
- var serverUrl = "http://localhost:5000";
+var serverUrl = "https://mobiledatausage.herokuapp.com";
+//  var serverUrl = "http://localhost:5000";
 
 
 myapp.controller('firstCtrl', ['$scope','$http', function($scope, $http){
@@ -279,6 +279,7 @@ var map= function (received) {
 		           //console.log(result);
 				//$scope.data = response;			
 				var received = response.data;
+				console.log(received);
 				//received = JSON.parse(received);
 				$scope.data = received;		
 				runD3(received);  // for data from server
