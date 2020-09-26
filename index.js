@@ -15,6 +15,10 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function (req, res) {
     res.render('public/index.html');
 });
- 
-app.listen(port);
+
+var server = app.listen(port, function () {
+  var port = server.address().port;
+  console.log("Express is working on port " + port);
+});
+
 console.log('Express server running at http://localhost:' + port);
