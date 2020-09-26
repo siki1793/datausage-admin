@@ -1,7 +1,6 @@
 //this will be our server
 var express = require("express"),
-    fs = require('fs'),
-    port = process.env.PORT || 2595;
+    fs = require('fs');
  
 var app = express();
 app.use(express.logger());
@@ -16,9 +15,13 @@ app.get('/', function (req, res) {
     res.render('public/index.html');
 });
 
+var port = process.env.PORT || 3000;
 var server = app.listen(port, function () {
-  var port = server.address().port;
-  console.log("Express is working on port " + port);
+	var host = server.address().address
+	var port = server.address().port
+	console.log("Server has started");
+	console.log(host);
+	console.log("listening at http://%s%s", host, port);
 });
 
 console.log('Express server running at http://localhost:' + port);
